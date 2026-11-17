@@ -8,6 +8,13 @@ if 'transformer' not in globals():
         def transformer(fn):
             return fn
 
+if 'test' not in globals():
+    try:
+        from mage_ai.data_preparation.decorators import test
+    except ImportError:
+        def test(fn):
+            return fn
+
 
 @transformer
 def evaluate(df, *args, **kwargs):
@@ -30,3 +37,17 @@ def evaluate(df, *args, **kwargs):
     print('\nClassification Metrics:')
     print(metrics)
     return metrics
+
+
+@test
+def test_metrics(output, *args):
+    """Independent improvement (Neelanjana Prakash, 23BCS176):
+    Added a @test quality gate to the evaluate_model block.
+    Previously this block had no assertion; a corrupt predictions DataFrame
+    could silently produce NaN metrics. This gate catches that early.
+    """
+    assert len(output) == 4, "Expected 4 metric rows (accuracy, precision, recall, f1_score)"
+    for _, row in output.iterrows():
+        assert 0.0 <= row['value'] <= 1.0, (
+            f"Metric '{row['metric']}' value {row['value']} is outside [0, 1]"
+        )

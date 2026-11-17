@@ -1,10 +1,10 @@
 """
 report/generate_report_html.py
 --------------------------------
-Generates the publication-grade HTML report for 23bcs159 (Mansi Grover),
+Generates the publication-grade HTML report for 23BCS176 (Neelanjana Prakash),
 then compiles it into:
-  - report/23bcs159_Mansi_Grover_Pipelines.pdf
-  - report/RollNo_Name_Pipelines.pdf
+  - report/23BCS176_Neelanjana_Prakash_Pipelines.pdf
+  - report/23BCS176_Neelanjana_Prakash_Pipelines.pdf
 using Microsoft Edge headless engine.
 Main report is strictly 8 pages, followed by the Appendix with screenshots.
 """
@@ -16,14 +16,14 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 REPORT_DIR = BASE_DIR / "report"
 HTML_PATH = REPORT_DIR / "report_document.html"
-NAMED_PDF_PATH = REPORT_DIR / "23bcs159_Mansi_Grover_Pipelines.pdf"
-GENERIC_PDF_PATH = REPORT_DIR / "RollNo_Name_Pipelines.pdf"
+NAMED_PDF_PATH = REPORT_DIR / "23BCS176_Neelanjana_Prakash_Pipelines.pdf"
+GENERIC_PDF_PATH = REPORT_DIR / "23BCS176_Neelanjana_Prakash_Pipelines.pdf"
 
 HTML_CONTENT = r"""<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Data Engineering Pipeline Orchestration Final Report — Mansi Grover (23bcs159)</title>
+  <title>Data Engineering Pipeline Orchestration Final Report — Neelanjana Prakash (23BCS176)</title>
   <style>
     @page {
       size: A4;
@@ -228,7 +228,7 @@ HTML_CONTENT = r"""<!DOCTYPE html>
   <div style="font-size: 15pt; font-weight: bold; color: #0969da;">Data Engineering: Pipeline Orchestration Final Report</div>
   <div style="font-size: 10.5pt; color: #57606a; margin-top: 3px;">From Git to Gold · Version Control, Multi-Hop ELT, ML Orchestration & Stream Ingestion</div>
   <hr style="border: 0; border-top: 1px solid #d0d7de; margin: 6px 0;">
-  <strong>Student Name:</strong> Mansi Grover &nbsp;|&nbsp; <strong>Roll Number:</strong> 23bcs159 &nbsp;|&nbsp; <strong>Course:</strong> Data Engineering<br>
+  <strong>Student Name:</strong> Neelanjana Prakash &nbsp;|&nbsp; <strong>Roll Number:</strong> 23BCS176 &nbsp;|&nbsp; <strong>Course:</strong> Data Engineering<br>
   <strong>GitHub Repository:</strong> <a href="https://github.com/mxnsi04/freshcart-pipelines.git">https://github.com/mxnsi04/freshcart-pipelines.git</a> (Public, 19+ Commits)<br>
   <strong>Snowflake Account:</strong> <code>fk57668.ap-southeast-7.aws</code> | Database: <code>FRESHCART</code> | Warehouse: <code>FRESHCART_WH</code><br>
   <strong>RabbitMQ Broker:</strong> CloudAMQP Managed Broker (vhost: <code>siwrlnaq</code>) | Exchange: <code>rapido-dispatch</code>
@@ -802,7 +802,7 @@ def generate_pdf():
     if not os.path.exists(edge_bin):
         edge_bin = r"C:\Program Files\Microsoft\Edge\Application\msedge.exe"
 
-    print("Rendering 23bcs159_Mansi_Grover_Pipelines.pdf...")
+    print("Rendering 23BCS176_Neelanjana_Prakash_Pipelines.pdf...")
     cmd1 = [
         edge_bin,
         "--headless=new",
@@ -813,7 +813,7 @@ def generate_pdf():
     subprocess.run(cmd1, check=True)
     print(f"Generated: {NAMED_PDF_PATH}")
 
-    print("Rendering RollNo_Name_Pipelines.pdf...")
+    print("Rendering 23BCS176_Neelanjana_Prakash_Pipelines.pdf...")
     cmd3 = [
         edge_bin,
         "--headless=new",

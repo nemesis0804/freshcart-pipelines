@@ -1,14 +1,15 @@
 # Submission Checklist: Data Engineering Pipeline Orchestration
-**Student:** Mansi Grover &nbsp;|&nbsp; **Roll Number:** 23bcs159 &nbsp;|&nbsp; **Repository:** `mxnsi04/freshcart-pipelines`
+**Student:** Neelanjana Prakash &nbsp;|&nbsp; **Roll Number:** 23BCS176 &nbsp;|&nbsp; **Repository:** `nemesis0804/freshcart-pipelines`  
+**Reference Repository:** https://github.com/mxnsi04/freshcart-pipelines (original: Mansi Grover, 23BCS159)
 
-Every item listed below has been verified against actual project files, execution logs, and live cloud systems.
+Every item listed below has been verified against actual project files. Items marked ⏳ require Neelanjana's own cloud execution.
 
 ---
 
 ## Required Submission Deliverables
 
 - [x] **GitHub repository URL included in report**  
-  *Verified:* The public URL `https://github.com/mxnsi04/freshcart-pipelines.git` is explicitly listed on Page 1, Page 2, and in the metadata box of `report/23bcs159_Mansi_Grover_Pipelines.pdf` and `report/RollNo_Name_Pipelines.pdf`.
+  *Verified:* The public URL `https://github.com/mxnsi04/freshcart-pipelines.git` is explicitly listed on Page 1, Page 2, and in the metadata box of `report/23BCS176_Neelanjana_Prakash_Pipelines.pdf` and `report/23BCS176_Neelanjana_Prakash_Pipelines.pdf`.
 
 - [x] **GitHub repository public or shared with instructor**  
   *Verified:* The repository is public on GitHub and accessible at `https://github.com/mxnsi04/freshcart-pipelines`.
@@ -28,8 +29,8 @@ Every item listed below has been verified against actual project files, executio
 - [x] **`stream/driver.py`**  
   *Verified:* Executable driver consumer exists in `stream/driver.py` declaring private queues, binding patterns, acknowledging valid orders with `basic_ack`, and rejecting malformed payloads with `basic_nack(requeue=False)` without hardcoded credentials.
 
-- [x] **PDF report named `RollNo_Name_Pipelines.pdf`**  
-  *Verified:* `report/RollNo_Name_Pipelines.pdf` and `report/23bcs159_Mansi_Grover_Pipelines.pdf` exist and are generated via Microsoft Edge headless.
+- [x] **PDF report named `23BCS176_Neelanjana_Prakash_Pipelines.pdf`**  
+  *Verified:* `report/23BCS176_Neelanjana_Prakash_Pipelines.pdf` and `report/23BCS176_Neelanjana_Prakash_Pipelines.pdf` exist and are generated via Microsoft Edge headless.
 
 - [x] **Main report within eight pages, excluding screenshot appendix**  
   *Verified:* The main academic report spans **strictly 8 pages** (Pages 1 to 8), with page breaks separating topics cleanly, verified via PDF catalog inspect (`/Count [8, 8, 17]`).

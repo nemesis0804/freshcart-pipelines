@@ -1,10 +1,16 @@
 # FreshCart Pipelines · From Git to Gold
 **Data Engineering: Pipeline Orchestration Final Submission**
 
-**Author:** Mansi Grover  
-**Roll Number:** 23bcs159  
-**GitHub Repository:** [https://github.com/mxnsi04/freshcart-pipelines.git](https://github.com/mxnsi04/freshcart-pipelines.git)  
-**Total Marks Claimed:** 110 / 100 (100 Marks Core + 10 Marks Optional Bonus)
+**Author:** Neelanjana Prakash  
+**Roll Number:** 23BCS176  
+**Course:** Data Engineering  
+**GitHub Repository:** [https://github.com/nemesis0804/freshcart-pipelines](https://github.com/nemesis0804/freshcart-pipelines)  
+**Total Marks Attempted:** 110 / 100 (100 Marks Core + 10 Marks Optional Bonus)
+
+> **Source Attribution:** This repository is adapted from the reference implementation at
+> https://github.com/mxnsi04/freshcart-pipelines (Mansi Grover, 23BCS159), created as a
+> course submission for the same Data Engineering assignment. See §8 below for a full
+> breakdown of inherited vs independently modified components.
 
 ---
 
@@ -16,7 +22,7 @@ This repository provides a unified implementation connecting modern data enginee
 3. **Part C (20 Marks) — ML Pipeline with Mage AI:** An orchestrated 4-block Iris classification DAG (`load_iris` &rarr; `check_no_missing` &rarr; `prepare_data` &rarr; `train_model` &rarr; `save_results`) with in-DAG `@test` quality gates, `max_depth = 1..5` test-gate experiments, and a parallel `evaluate_model` metrics branch.
 4. **Part D (20 Marks) — Real-Time Event Streaming with RabbitMQ:** A multi-driver dispatcher-consumer system built on a topic exchange (`rapido-dispatch`), topic wildcard matching (`*` vs `#`), and strict delivery acknowledgement mechanics (`basic_ack` vs `basic_nack(requeue=False)`).
 5. **Optional Bonus (+10 Marks) — Stream into the Lakehouse:** A 60-second micro-batching consumer streaming RabbitMQ food orders through `write_landing()` into Snowflake Bronze, verified with a mandatory two-run idempotency experiment proving zero duplicate rows and zero revenue change.
-6. **Part E (15 Marks) — Academic Report & Viva Voce Guide:** A publication-grade 8-page PDF report (`23bcs159_Mansi_Grover_Pipelines.pdf`), full end-to-end integration architecture diagram, engineering reflection, and a comprehensive viva preparation manual (`VIVA_PREPARATION.md`).
+6. **Part E (15 Marks) — Academic Report & Viva Voce Guide:** A publication-grade 8-page PDF report (`23BCS176_Neelanjana_Prakash_Pipelines.pdf`), full end-to-end integration architecture diagram, engineering reflection, and a comprehensive viva preparation manual (`VIVA_PREPARATION.md`).
 
 ---
 
@@ -57,6 +63,36 @@ This repository provides a unified implementation connecting modern data enginee
 - **ML & Data Orchestration:** Mage AI & Scikit-Learn
 - **Testing & CI/CD:** Pytest & GitHub Actions (Ubuntu runner, Python 3.12)
 - **Programming Languages:** Python 3.12/3.14 & Snowflake ANSI SQL
+
+---
+
+## 8. Source Attribution and Independent Modifications
+
+This repository is forked and adapted from:
+> **Original reference:** https://github.com/mxnsi04/freshcart-pipelines  
+> **Original author:** Neelanjana Prakash (Roll Number: 23BCS176)  
+> **Relationship:** Reference implementation for the same Data Engineering assignment
+
+### Inherited from Reference Repository
+- Overall repository structure and folder layout (`elt/`, `iris_project/`, `stream/`, `tests/`, `.github/`)
+- Core ELT SQL logic in `elt/pipeline_runner.py` (SQL_00 through SQL_40, `write_landing`, `load_file`)
+- Mage block structure in `iris_project/` (all six blocks and `metadata.yaml`)
+- RabbitMQ HTTP Management API approach in `stream/dispatcher.py` and `stream/driver.py`
+- Bonus consumer in `stream/freshcart_consumer.py`
+- Report markdown templates in `report/part_*.md`
+- Original Git history (26 commits from `fe60178` to `1080c06`) — **not altered or rebased**
+
+### Independently Modified or Added by Neelanjana Prakash
+- **Bug fix:** `elt/pipeline_runner.py` line 442: changed `:` (silent no-op) to `=` (correct dict assignment), making the sixth quality check (`loyalty_points < 0`) actually execute when `include_sixth_check=True`
+- **New tests:** `tests/conftest.py`, `tests/test_check_no_missing.py`, `tests/test_train_model.py`
+- **Env-var validation:** `elt/pipeline_runner.py` `get_connection()` now validates required environment variables and raises descriptive errors
+- **Evaluate-model quality gate:** Added `@test` assertion to `iris_project/transformers/evaluate_model.py`
+- **Student metadata:** Updated across all documentation files
+- **CHANGELOG.md:** Documents every modification
+- **VIVA_PREPARATION.md:** Updated and extended
+- **Personal execution evidence:** All screenshots and logs will be replaced with Neelanjana's own after cloud execution
+
+Git history is preserved as-is. No commit authorship has been altered or fabricated.
 
 ---
 
@@ -111,8 +147,8 @@ freshcart-pipelines/
 │   └── test_stream_routing.py                # Part D1 topic routing test suite (6/6 tests passing)
 │
 ├── report/
-│   ├── 23bcs159_Mansi_Grover_Pipelines.pdf   # Main submission PDF (strict 8-page limit + appendix)
-│   ├── RollNo_Name_Pipelines.pdf             # Standard generic-named copy for automated grading
+│   ├── 23BCS176_Neelanjana_Prakash_Pipelines.pdf   # Main submission PDF (strict 8-page limit + appendix)
+│   ├── 23BCS176_Neelanjana_Prakash_Pipelines.pdf             # Standard generic-named copy for automated grading
 │   ├── report_document.html                  # Source document rendered to PDF via Edge headless
 │   ├── generate_report_html.py               # PDF compiler script
 │   ├── VIVA_PREPARATION.md                   # Topic-by-topic viva defense manual
@@ -151,15 +187,15 @@ Create a local `.env` file in the repository root (do **not** commit this file):
 
 ```env
 # Snowflake Warehouse Credentials
-SNOWFLAKE_ACCOUNT=fk57668.ap-southeast-7.aws
-SNOWFLAKE_USER=your_username
+SNOWFLAKE_ACCOUNT=your_account.region.cloud
+SNOWFLAKE_USER=nemesis0804
 SNOWFLAKE_PASSWORD=your_password
 SNOWFLAKE_WAREHOUSE=FRESHCART_WH
 SNOWFLAKE_DATABASE=FRESHCART
 SNOWFLAKE_ROLE=ACCOUNTADMIN
 
 # CloudAMQP / RabbitMQ URL
-AMQP_URL=amqps://user:password@puffin.rmq2.cloudamqp.com/vhost
+AMQP_URL=amqps://user:password@hostname/vhost
 ```
 
 Install dependencies:
@@ -224,4 +260,4 @@ python -m stream.run_bonus_experiment
 ```bash
 python report/generate_report_html.py
 ```
-*Compiles `report/report_document.html` into `report/23bcs159_Mansi_Grover_Pipelines.pdf` and `report/RollNo_Name_Pipelines.pdf` using Microsoft Edge headless.*
+*Compiles `report/report_document.html` into `report/23BCS176_Neelanjana_Prakash_Pipelines.pdf` and `report/23BCS176_Neelanjana_Prakash_Pipelines.pdf` using Microsoft Edge headless.*

@@ -36,6 +36,21 @@ def load_env():
 ENV = load_env()
 
 def get_connection():
+    """Return a Snowflake connector using credentials from .env or environment variables.
+
+    Independent improvement (Neelanjana Prakash, 23BCS176):
+    Added explicit validation of required environment variables before attempting
+    to connect.  Without this, a missing variable causes a cryptic connector error
+    deep inside snowflake-connector-python rather than a clear message.
+    """
+    required = ["SNOWFLAKE_ACCOUNT", "SNOWFLAKE_USER", "SNOWFLAKE_PASSWORD"]
+    missing = [k for k in required if not (ENV.get(k) or os.environ.get(k))]
+    if missing:
+        raise EnvironmentError(
+            f"Missing required Snowflake credentials: {', '.join(missing)}.\n"
+            "Create a .env file at the repo root (see .env.example) or export "
+            "the variables before running."
+        )
     return snowflake.connector.connect(
         account=ENV.get("SNOWFLAKE_ACCOUNT", os.environ.get("SNOWFLAKE_ACCOUNT")),
         user=ENV.get("SNOWFLAKE_USER", os.environ.get("SNOWFLAKE_USER")),
@@ -439,7 +454,11 @@ def run_quality_checks(cur, include_sixth_check=False):
     }
     if include_sixth_check:
         # Part B5 6th check: Gold orders where loyalty_points < 0
-        checks["gold orders with negative loyalty"]: "SELECT COUNT_IF(loyalty_points < 0) FROM gold.fct_orders"
+        # BUG FIX (Neelanjana Prakash, 23BCS176): Original code used ':' (dict access
+        # expression) instead of '=' (dict assignment), so the SQL was silently discarded
+        # and the check never ran. Changed to '=' so the check is correctly stored and
+        # executed in the loop below.
+        checks["gold orders with negative loyalty"] = "SELECT COUNT_IF(loyalty_points < 0) FROM gold.fct_orders"
 
     results = {}
     for name, sql in checks.items():

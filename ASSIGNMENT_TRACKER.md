@@ -1,7 +1,9 @@
 # ASSIGNMENT TRACKER
 ## From Git to Gold – Data Engineering Pipeline Orchestration
 
-**Last Updated:** 2026-11-16 00:15 IST  
+**Student:** Neelanjana Prakash | **Roll Number:** 23BCS176 | **Course:** Data Engineering  
+**Reference Repository:** https://github.com/mxnsi04/freshcart-pipelines (original author: Neelanjana Prakash, 23BCS176)  
+**Last Updated:** 2026-11-17  
 **Current Git Status:** Working Tree Clean, Branch `main`
 
 ---
